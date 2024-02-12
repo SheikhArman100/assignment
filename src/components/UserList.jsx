@@ -26,8 +26,7 @@ const UserList = ({ searchQuery, sortQuery }) => {
 
   useEffect(() => {
     if (searchQuery || sortQuery) {
-      console.log("1--->", users);
-      console.log("2--->", searchQuery);
+      
       const filterData = users?.filter((user) => {
         const name = `${user.firstName} ${user.lastName}`;
         return name.toLowerCase().includes(searchQuery.toLowerCase());
