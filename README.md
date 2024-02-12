@@ -12,6 +12,6 @@
 - sorting by name ,email using query parameter 
 - create new user with react-hook-form and zod validation
 - responsive grid view
-- tanstack-query caching
+- tanstack-query fetching and caching
 - loading ui
 
