@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { axiosPublic } from "../libs/axios/axiosIntsance.js";
 import CardSkeleton from "./CardSkeleton.jsx";
 import UserCard from "./UserCard.jsx";
@@ -14,34 +14,35 @@ const UserList = ({ searchQuery, sortQuery }) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       const response = await axiosPublic.get("/users");
 
-      return response.data;
+      return response.data.users
     },
   });
+  
 
   const [filterList, setFilterList] = useState([]);
-  const users=data?.users
+  // const users=data
  
-  useEffect(() => {
+  // useEffect(() => {
     
-      if (searchQuery) {
-        const filterData = users?.filter((user) => {
-          const name = `${user.firstName} ${user.lastName}`;
-          return name.toLowerCase().includes(searchQuery.toLowerCase());
-        });
+  //     if (searchQuery) {
+  //       const filterData = users?.filter((user) => {
+  //         const name = `${user.firstName} ${user.lastName}`;
+  //         return name.toLowerCase().includes(searchQuery.toLowerCase());
+  //       });
   
-        setFilterList(filterData);
-      }
-      if(sortQuery){
-        const sortData=users?.sort((a,b)=>{
-          return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-        })
-        setFilterList(sortData)
-      }
+  //       setFilterList(filterData);
+  //     }
+  //     if(sortQuery){
+  //       const sortData=users?.sort((a,b)=>{
+  //         return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+  //       })
+  //       setFilterList(sortData)
+  //     }
 
     
     
     
-  }, [searchQuery,sortQuery]);
+  // }, [searchQuery,sortQuery]);
 
   if (isPending) {
     return (
@@ -63,15 +64,12 @@ const UserList = ({ searchQuery, sortQuery }) => {
   
 
   return (
-    <>
-    {data?<div className=" flex-1 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-y-5 gap-x-10  ">
-      {searchQuery||sortQuery?filterList?.map((user, index) => {
-        return <UserCard key={index} user={user} />
-      }):users.map((user,index)=>{
+    <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-y-5 gap-x-10">
+    {data.map((user,index)=>{
         return <UserCard key={index} user={user} />
       })}
-    </div>:null}
-    </>
+    
+    </div>
   );
 };
 

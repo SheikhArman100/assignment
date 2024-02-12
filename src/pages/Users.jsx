@@ -1,6 +1,5 @@
 import { useSearchParams } from "react-router-dom";
 import AddUser from "../components/AddUser.jsx";
-import Pagination from "../components/Pagination.jsx";
 import SearchUser from "../components/SearchUser.jsx";
 import Sort from "../components/Sort.jsx";
 import UserList from "../components/UserList.jsx";
@@ -21,7 +20,7 @@ const Users = () => {
       </div>
       <div className=" flex flex-col items-center   gap-y-6 py-6">
         <UserList  searchQuery={searchQuery} sortQuery={sortQuery}/>
-        {/* <Pagination /> */}
+        
       </div>
     </div>
   );
