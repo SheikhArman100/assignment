@@ -1,48 +1,46 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { axiosPublic } from "../libs/axios/axiosIntsance.js";
 import CardSkeleton from "./CardSkeleton.jsx";
 import UserCard from "./UserCard.jsx";
 
 const UserList = ({ searchQuery, sortQuery }) => {
   //fetch users data
-  const { data, isPending, error } = useQuery({
+  const {
+    data: users,
+    isPending,
+    error,
+  } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       const response = await axiosPublic.get("/users");
 
-      return response.data.users
+      return response.data.users;
     },
   });
-  
 
   const [filterList, setFilterList] = useState([]);
-  // const users=data
- 
-  // useEffect(() => {
-    
-  //     if (searchQuery) {
-  //       const filterData = users?.filter((user) => {
-  //         const name = `${user.firstName} ${user.lastName}`;
-  //         return name.toLowerCase().includes(searchQuery.toLowerCase());
-  //       });
-  
-  //       setFilterList(filterData);
-  //     }
-  //     if(sortQuery){
-  //       const sortData=users?.sort((a,b)=>{
-  //         return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-  //       })
-  //       setFilterList(sortData)
-  //     }
 
-    
-    
-    
-  // }, [searchQuery,sortQuery]);
+  useEffect(() => {
+    if (searchQuery || sortQuery) {
+      console.log("1--->", users);
+      console.log("2--->", searchQuery);
+      const filterData = users?.filter((user) => {
+        const name = `${user.firstName} ${user.lastName}`;
+        return name.toLowerCase().includes(searchQuery.toLowerCase());
+      });
+
+      const sortData = filterData?.sort((a, b) => {
+        return a[sortQuery]
+          ?.toLowerCase()
+          .localeCompare(b[sortQuery]?.toLowerCase());
+      });
+      setFilterList(sortData);
+    }
+  }, [users, searchQuery, sortQuery]);
 
   if (isPending) {
     return (
@@ -61,15 +59,20 @@ const UserList = ({ searchQuery, sortQuery }) => {
     );
   }
 
-  
-
   return (
-    <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-y-5 gap-x-10">
-    {data.map((user,index)=>{
-        return <UserCard key={index} user={user} />
-      })}
-    
-    </div>
+    <>
+      {users ? (
+        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-y-5 gap-x-10">
+          {searchQuery || sortQuery
+            ? filterList?.map((user, index) => (
+                <UserCard key={index} user={user} />
+              ))
+            : users.map((user, index) => <UserCard key={index} user={user} />)}
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </>
   );
 };
 

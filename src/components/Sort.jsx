@@ -5,17 +5,13 @@ import { IoIosArrowDown } from "react-icons/io";
 const sortOptions = [
   {
     title: "Name",
-    value: "name",
+    value: "firstName",
   },
   {
     title: "Email",
     value: "email",
   },
-  {
-    title: "Company",
-    value: "company",
-  },
-];
+]
 
 const Sort = ({sortQuery,setSearchParams}) => {
   useEffect(() => {

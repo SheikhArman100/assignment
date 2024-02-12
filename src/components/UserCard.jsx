@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const UserCard = ({user}) => {
   
   return (
-    <Link to={`/users/${user.id}`} className="card w-[18rem] md:w-[22rem] bg-base-100 shadow-xl p-4 border">
+    <Link to={`/users/${user.id}`} className="card w-[18rem] md:w-[22rem] bg-base-100 shadow-xl p-4 border ">
       <div className="flex flex-col items-center gap-x-3">
         {/* avatar */}
         <div className="avatar">
@@ -23,7 +23,7 @@ const UserCard = ({user}) => {
       <div className="flex flex-col items-center justify-between mt-3 gap-y-2">
         <div className=" p-2 flex   items-center justify-center whitespace-nowrap gap-x-1.5 border rounded-lg bg-violet-400 text-bgColor">
           <IoLocationOutline className="size-4 shrink-0" />
-          <p className="text-sm font-medium overflow-hidden whitespace-nowrap">
+          <p className="text-xs sm:text-sm font-medium overflow-hidden whitespace-nowrap ">
             {user.address.address}, {user.address.city}
           </p>
         </div>

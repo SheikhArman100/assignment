@@ -1,33 +1,13 @@
-import { useEffect } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 
 // eslint-disable-next-line react/prop-types
 const SearchUser = ({ searchQuery, setSearchParams }) => {
-
-  useEffect(() => {
-    setSearchParams((prev) => {
-      prev.set("search", "");
-      return prev;
-    },{
-      replace:true
-    });
-  }, [])
-  
-  
-  
-
-
-  const handleSearch=(value)=>{
+  const handleSearch = (value) => {
     setSearchParams((prev) => {
       prev.set("search", value);
       return prev;
-    },{
-      replace:true
     });
-
-
-  }
-
+  };
 
   return (
     <div className="flex-1 max-w-[20rem] flex items-center justify-between border border-border py-2 px-3  rounded-md">
@@ -36,7 +16,7 @@ const SearchUser = ({ searchQuery, setSearchParams }) => {
         placeholder="search user..."
         className="font-semibold"
         value={searchQuery}
-        onChange={(e)=>handleSearch(e.target.value)}
+        onChange={(e) => handleSearch(e.target.value)}
       />
       <IoSearchOutline className="size-6" />
     </div>
