@@ -24,7 +24,7 @@ const UserList = ({ searchQuery, sortQuery }) => {
   useEffect(() => {
     
       if (searchQuery) {
-        const filterData = users.filter((user) => {
+        const filterData = users?.filter((user) => {
           const name = `${user.firstName} ${user.lastName}`;
           return name.toLowerCase().includes(searchQuery.toLowerCase());
         });
@@ -32,7 +32,7 @@ const UserList = ({ searchQuery, sortQuery }) => {
         setFilterList(filterData);
       }
       if(sortQuery){
-        const sortData=users.sort((a,b)=>{
+        const sortData=users?.sort((a,b)=>{
           if (a.name.toLowerCase() < b.name.toLowerCase()) {
             return -1;
           }
@@ -69,13 +69,15 @@ const UserList = ({ searchQuery, sortQuery }) => {
   
 
   return (
-    <div className=" flex-1 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-y-5 gap-x-10  ">
+    <>
+    {data?<div className=" flex-1 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-y-5 gap-x-10  ">
       {searchQuery||sortQuery?filterList.map((user, index) => {
         return <UserCard key={index} user={user} />
       }):users.map((user,index)=>{
         return <UserCard key={index} user={user} />
       })}
-    </div>
+    </div>:null}
+    </>
   );
 };
 

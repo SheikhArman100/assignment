@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import { FaBuildingColumns } from "react-icons/fa6";
 import { IoLocationOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 const UserCard = ({user}) => {
   
   return (
-    <div className="card w-[18rem] md:w-[22rem] bg-base-100 shadow-xl p-4 border">
+    <Link to={`/users/${user.id}`} className="card w-[18rem] md:w-[22rem] bg-base-100 shadow-xl p-4 border">
       <div className="flex flex-col items-center gap-x-3">
         {/* avatar */}
         <div className="avatar">
@@ -31,7 +32,7 @@ const UserCard = ({user}) => {
           <p className="text-sm font-medium overflow-hidden whitespace-nowrap">{user.company.name}</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
