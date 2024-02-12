@@ -9,7 +9,7 @@ const UserDetails = () => {
     isPending,
     error,
   } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users",id],
     queryFn: async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       const response = await axiosPublic.get(`/users/${id}`);
@@ -57,6 +57,7 @@ const UserDetails = () => {
           placeholder="Type here"
           className="input input-bordered w-full max-w-lg"
           value={user.firstName}
+          readOnly
         />
       </div>
       <div className="flex flex-col items-start gap-y-1 ">
@@ -68,6 +69,7 @@ const UserDetails = () => {
           placeholder="Type here"
           className="input input-bordered w-full max-w-lg"
           value={user.lastName}
+          readOnly
         />
       </div>
       <div className="flex flex-col items-start gap-y-1 ">
@@ -77,6 +79,7 @@ const UserDetails = () => {
           placeholder="Type here"
           className="input input-bordered w-full max-w-lg"
           value={user.email}
+          readOnly
         />
       </div>
       <div className="flex flex-col items-start gap-y-1 md:col-span-2">
@@ -88,6 +91,7 @@ const UserDetails = () => {
           placeholder="Type here"
           className="input input-bordered w-full max-w-lg"
           value={user.company.name}
+          readOnly
         />
       </div>
       <div className="flex flex-col items-start gap-y-1  md:col-span-2">
@@ -97,6 +101,7 @@ const UserDetails = () => {
           placeholder="Type here"
           className="input input-bordered w-full max-w-lg"
           value={`${user.address.address}, ${user.address.city}`}
+          readOnly
         />
       </div>
     </section>

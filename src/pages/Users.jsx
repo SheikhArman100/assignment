@@ -21,7 +21,7 @@ const Users = () => {
       </div>
       <div className=" flex flex-col items-center   gap-y-6 py-6">
         <UserList  searchQuery={searchQuery} sortQuery={sortQuery}/>
-        <Pagination />
+        {/* <Pagination /> */}
       </div>
     </div>
   );

@@ -33,13 +33,7 @@ const UserList = ({ searchQuery, sortQuery }) => {
       }
       if(sortQuery){
         const sortData=users?.sort((a,b)=>{
-          if (a.name.toLowerCase() < b.name.toLowerCase()) {
-            return -1;
-          }
-          if (a.name.toLowerCase() > b.name.toLowerCase()) {
-            return 1;
-          }
-          return 0;
+          return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
         })
         setFilterList(sortData)
       }
@@ -71,7 +65,7 @@ const UserList = ({ searchQuery, sortQuery }) => {
   return (
     <>
     {data?<div className=" flex-1 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-y-5 gap-x-10  ">
-      {searchQuery||sortQuery?filterList.map((user, index) => {
+      {searchQuery||sortQuery?filterList?.map((user, index) => {
         return <UserCard key={index} user={user} />
       }):users.map((user,index)=>{
         return <UserCard key={index} user={user} />
