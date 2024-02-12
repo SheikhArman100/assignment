@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+import { useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
 const sortOptions = [
@@ -15,13 +17,36 @@ const sortOptions = [
   },
 ];
 
-const Sort = () => {
-  // const location=useLocation()
-  // const [searchParams, setSearchParams] = useSearchParams();
+const Sort = ({sortQuery,setSearchParams}) => {
+  useEffect(() => {
+    setSearchParams((prev) => {
+      prev.set("sort", "");
+      return prev;
+    },{
+      replace:true
+    });
+  
+   
+  }, [])
+  
+  
   
   const handleSort=(value)=>{
-    // console.log(location)
-    // console.log(searchParams)
+    if(sortQuery){
+      setSearchParams((prev) => {
+        prev.set("sort", "");
+        return prev;
+      },{
+        replace:true
+      });
+    }
+    setSearchParams((prev) => {
+      prev.set("sort", value);
+      return prev;
+    },{
+      replace:true
+    });
+    
 
   }
   return (
@@ -35,7 +60,7 @@ const Sort = () => {
           return (
             <li key={index}>
               <label>
-                <input type="checkbox" className="checkbox" value={option.value} onChange={(e)=>handleSort(e.target.value)} />
+                <input type="radio" className="radio" value={option.value} onChange={(e)=>handleSort(e.target.value)} checked={sortQuery===option.value}/>
                 <span className="text-sm font-semibold">{option.title}</span>
               </label>
             </li>
